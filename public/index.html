@@ -6,10 +6,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>jigi</title>
   <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-      const table = document.getElementById('table');
+    let kanjiMeaningsDict;
+    const fetchKanjiMeanings = async () => {
+      try {
+        const response = await fetch('kanji-meanings-dict.json')
+        kanjiMeaningsDict = await response.json();
+        console.log(kanjiMeaningsDict);
+      } catch (error) {
+        console.error('Error loading Kanji Meanings:', error);
+      }
+    }
+    fetchKanjiMeanings();
 
-      let previousText;
+    const getMeaningsForKanji = (text) => {
+      let meanings = {};
+      for (const character of text) {
+        const kanjiMeanings = kanjiMeaningsDict[character];
+        if (!!Object.keys(kanjiMeanings)) {
+          meanings[character] = kanjiMeanings["Meanings"];
+        }
+      }
+      return meanings;
+    };
+
+    const populateMeaningsLists = () => {
+      const meaningsLists = document.getElementById('meanings-lists');
+      const kanjiMeanings = getMeaningsForKanji(previousText);
+
+      // Clear existing table content and repopulate table with kanji meanings
+      if (!!meaningsLists) meaningsLists.innerHTML = '';
+      for (const kanji in kanjiMeanings) {
+        const ul = document.createElement('ul');
+        for (const meaning of kanjiMeanings[kanji]) {
+          if (!!meaning.trim().length) {
+            const li = document.createElement('li');
+            li.textContent = meaning;
+            ul.appendChild(li);
+          } else {
+            break;
+          }
+        }
+        meaningsLists.appendChild(ul);
+      }
+    };
+  </script>
+  <script>
+    let previousText;
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const clipboardContentList = document.getElementById('clipboard-contents');
+
       // let previousMeanings;
       // const copyToClipboard = async () => {
       //   try {
@@ -34,9 +79,9 @@
             // Get its text content and add the text to a new row in the table, then remove the <p> element.
             let text = p.textContent
             if (text !== previousText) {
-              const row = table.insertRow();
-              const cell = row.insertCell();
-              cell.textContent = text;
+              const li = document.createElement('li');
+              li.textContent = text;
+              clipboardContentList.appendChild(li);
               previousText = text;
               p.remove()
             }
@@ -55,7 +100,11 @@
 <body>
   <h1>jigi</h1>
   <!-- <button type="button" onclick="copyToClipboard()">Start!</button> -->
-  <table id="table"></table>
+  <ul id="clipboard-contents">
+    <li>-- Clipboard Text Goes Here --</li>
+  </ul>
+  <button type="button" onclick="populateMeaningsLists()">Find Meanings</button>
+  <div id="meanings-lists"></div>
 </body>
 
 </html>
