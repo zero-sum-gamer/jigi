@@ -5,15 +5,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JIGI</title>
-  <script type="module" src="./scripts/main.js"></script> 
+  <script type="module" src="./scripts/main.js" defer></script>
 </head>
 
 <body>
   <h1>字義</h1>
   <h2>JIGI</h2>
-  <!-- <button type="button" onclick="copyToClipboard()">Start!</button> -->
   <ul id="clipboard-contents"></ul>
   <input type="text" id="search-field" />
+  <div>
+    <span id="output-field">[. . .]</span>
+    <button type="button" onclick="copyToClipboard()">💾</button>
+  </div>
   <button type="button" onclick="populateMeaningsLists()">Find Meanings</button>
   <div id="meanings-lists"></div>
 </body>

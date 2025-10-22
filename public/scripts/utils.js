@@ -3,7 +3,6 @@ export const fetchKanjiMeanings = async () => {
   try {
     const response = await fetch('./data/kanji-meanings-dict.json')
     kanjiMeaningsDict = await response.json();
-    console.log(kanjiMeaningsDict);
   } catch (error) {
     console.error('Error loading Kanji Meanings:', error);
   }
@@ -35,7 +34,7 @@ export const populateMeaningsLists = () => {
         const li = document.createElement('li');
         const button = document.createElement('button');
         button.textContent = meaning;
-        button.onclick = () => appendQueryParam(`kanji-${kanjiIndex + 1}`, meaning);
+        button.onclick = () => appendQueryParam(`meaning-${kanjiIndex + 1}`, meaning);
         li.append(button);
         ul.append(li);
       } else {
@@ -46,10 +45,19 @@ export const populateMeaningsLists = () => {
   });
 };
 
+const separator = " | ";
+const outputField = document.getElementById('output-field');
+export const queryParamsUpdatedListener = () => {
+  const url = new URL(window.location.href);
+  url.searchParams.sort()
+  outputField.textContent = Array.from(url.searchParams.values()).join(separator);
+}
+
 export const appendQueryParam = (paramName, paramValue) => {
   const url = new URL(window.location.href);
   url.searchParams.set(paramName, paramValue);
   history.pushState({}, "", url);
+  queryParamsUpdatedListener()
 }
 
 export const clearQueryParams = () => {
@@ -57,4 +65,5 @@ export const clearQueryParams = () => {
   url.search = "";
   history.pushState({}, "", url);
 }
+
  
