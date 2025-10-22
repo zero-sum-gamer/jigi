@@ -72,3 +72,11 @@ export const clearQueryParams = () => {
   history.pushState({}, "", url);
 }
 
+export const copyToClipboard = async () => {
+  try {
+    await navigator.clipboard.writeText(outputField.textContent);
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+  }
+}
+

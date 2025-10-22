@@ -1,20 +1,11 @@
-import { fetchKanjiMeanings, populateMeaningsLists, queryParamsUpdatedListener } from './utils.js';
+import { fetchKanjiMeanings, populateMeaningsLists, queryParamsUpdatedListener, copyToClipboard } from './utils.js';
 
 let previousText;
 
 const clipboardContentList = document.getElementById('clipboard-contents');
 
 // let previousMeanings;
-// const copyToClipboard = async () => {
-//   try {
-//     if (content !== previousMeanings) {
-//       await navigator.clipboard.writeText(content);
-//       previousMeanings = content;
-//     }
-//   } catch (err) {
-//     console.error('Failed to copy: ', err);
-//   }
-// }
+
 /* 
 let callbackProcessInsertedContent = function (mutations) {
   mutations.forEach((mutation) => {
@@ -46,3 +37,4 @@ observer.observe(document.body, observerOptions)
 fetchKanjiMeanings();
 window.addEventListener('popstate', queryParamsUpdatedListener);
 window.populateMeaningsLists = populateMeaningsLists;
+window.copyToClipboard = copyToClipboard;
