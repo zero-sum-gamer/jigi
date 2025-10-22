@@ -19,18 +19,23 @@ const getMeaningsForKanji = (text) => {
   return meanings;
 };
 
+const meaningsLists = document.getElementById('meanings-lists');
+const textInput = document.getElementById('search-field');
 export const populateMeaningsLists = () => {
   clearQueryParams();
-  const meaningsLists = document.getElementById('meanings-lists');
-  const textInput = document.getElementById('search-field');
   const kanjiMeanings = getMeaningsForKanji(textInput.value);
 
   // Clear existing table content and repopulate table with kanji meanings
   if (!!meaningsLists) meaningsLists.innerHTML = '';
   Object.keys(kanjiMeanings).forEach((kanji, kanjiIndex) => {
     const ul = document.createElement('ul');
-    for (const meaning of kanjiMeanings[kanji]) {
+    const finalIndex = kanjiMeanings[kanji].length - 1;
+    for (let meaningIndex = 0; meaningIndex <= finalIndex; meaningIndex++) {
+      const meaning = kanjiMeanings[kanji][meaningIndex];
       if (!!String(meaning).trim().length) {
+        // Automatically append the first meaning of each kanji to the query params.
+        if (meaningIndex == 0) appendQueryParam(`meaning-${kanjiIndex + 1}`, meaning)
+
         const li = document.createElement('li');
         const button = document.createElement('button');
         button.textContent = meaning;
@@ -38,6 +43,7 @@ export const populateMeaningsLists = () => {
         li.append(button);
         ul.append(li);
       } else {
+        // Found an empty meaning, stop processing further meanings for this kanji.
         break;
       }
     }
@@ -66,4 +72,3 @@ export const clearQueryParams = () => {
   history.pushState({}, "", url);
 }
 
- 
