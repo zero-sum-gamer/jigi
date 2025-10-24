@@ -56,7 +56,7 @@ const outputField = document.getElementById('output-field');
 export const queryParamsUpdatedListener = () => {
   const url = new URL(window.location.href);
   url.searchParams.sort()
-  outputField.textContent = Array.from(url.searchParams.values()).join(separator);
+  outputField.value = Array.from(url.searchParams.values()).join(separator);
 }
 
 export const appendQueryParam = (paramName, paramValue) => {
@@ -74,7 +74,7 @@ export const clearQueryParams = () => {
 
 export const copyToClipboard = async () => {
   try {
-    await navigator.clipboard.writeText(outputField.textContent);
+    await navigator.clipboard.writeText(outputField.value);
   } catch (err) {
     console.error('Failed to copy: ', err);
   }

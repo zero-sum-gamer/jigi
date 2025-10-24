@@ -8,17 +8,22 @@
   <script type="module" src="./scripts/main.js" defer></script>
 </head>
 
-<body>
-  <h1>字義</h1>
-  <h2>JIGI</h2>
-  <ul id="clipboard-contents"></ul>
-  <input type="text" id="search-field" />
+<body style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+  <h1 style="margin:0 auto;">字義</h1>
+  <h2 style="margin:0 auto;">JIGI</h2>
+  <ul style="margin:0 auto;" id="clipboard-contents"></ul>
   <div>
-    <span id="output-field">[. . .]</span>
-    <button type="button" onclick="copyToClipboard()">💾</button>
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-direction: row;">
+      <input style="border: 1px solid black; width: 100%;" type="text" id="search-field" />
+      <button style="flex-shrink: 0;" type="button" onclick="populateMeaningsLists()">Find Meanings</button>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-direction: row;">
+      <input type="text" id="output-field" style="border: 1px solid black; width: 100%;"></input>
+      <button type="button" style="flex-shrink: 0;" onclick="copyToClipboard()">💾</button>
+    </div>
   </div>
-  <button type="button" onclick="populateMeaningsLists()">Find Meanings</button>
-  <div id="meanings-lists"></div>
+  <div style="display: flex; justify-content: center; align-items: flex-start; flex-direction: row;"
+    id="meanings-lists"></div>
 </body>
 
 </html>
