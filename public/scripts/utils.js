@@ -12,7 +12,9 @@ const getMeaningsForKanji = (text) => {
   let meanings = {};
   for (const character of text) {
     const kanjiMeanings = kanjiMeaningsDict[character];
-    if (!!Object.keys(kanjiMeanings)) {
+
+    // If character is not a kanji, skip it.
+    if (!!kanjiMeanings && !!Object.keys(kanjiMeanings)) {
       meanings[character] = kanjiMeanings["Meanings"];
     }
   }
