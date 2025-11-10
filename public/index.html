@@ -10,24 +10,27 @@
 </head>
 
 <body>
-  <h1 style="margin:0 auto;">字義</h1>
-  <h2 style="margin:0 auto;">JIGI</h2>
-  <ul style="margin:0 auto;" id="clipboard-contents"></ul>
-  <div>
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-direction: row;">
-      <input style="border: 1px solid black; width: 100%;" type="text" id="search-field" />
-      <button style="flex-shrink: 0;" type="button" onclick="populateMeaningsLists()">Find Meanings</button>
+  <header>
+    <h1 style="margin:0 auto;">字義</h1>
+    <h2 style="margin:0 auto;">JIGI</h2>
+  </header>
+  <main>
+    <div>
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-direction: row;">
+        <input style="border: 1px solid black; width: 100%;" type="text" id="search-field" />
+        <button style="flex-shrink: 0;" type="button" onclick="populateMeaningsLists()">Find Meanings</button>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-direction: row;">
+        <input type="text" id="output-field" style="border: 1px solid black; width: 100%;"></input>
+        <button type="button" style="flex-shrink: 0;" onclick="copyToClipboard()">💾</button>
+      </div>
     </div>
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-direction: row;">
-      <input type="text" id="output-field" style="border: 1px solid black; width: 100%;"></input>
-      <button type="button" style="flex-shrink: 0;" onclick="copyToClipboard()">💾</button>
-    </div>
-  </div>
-  <div id="meanings-lists"></div>
-  <div id="history">
+    <div id="meanings-lists"></div>
+  </main>
+  <section id="history">
     <h3 style="margin:0 auto;">History</h2>
       <div id="log"></div>
-  </div>
+  </section>
 </body>
 
 </html>
