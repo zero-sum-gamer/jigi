@@ -1,0 +1,27 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#history {
+  position: fixed;
+  inset: 0 0 auto auto;
+  height: 100%;
+  border: 1px solid;
+}
+
+#log {
+  position: fixed;
+  inset: 0 0 auto auto;
+  height: 100%;
+  border: 1px solid;
+}
+
+#meanings-lists {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: row;
+}

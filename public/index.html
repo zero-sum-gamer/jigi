@@ -5,10 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JIGI</title>
+  <link rel="stylesheet" href="./styles/style.css">
   <script type="module" src="./scripts/main.js" defer></script>
 </head>
 
-<body style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+<body>
   <h1 style="margin:0 auto;">字義</h1>
   <h2 style="margin:0 auto;">JIGI</h2>
   <ul style="margin:0 auto;" id="clipboard-contents"></ul>
@@ -22,11 +23,10 @@
       <button type="button" style="flex-shrink: 0;" onclick="copyToClipboard()">💾</button>
     </div>
   </div>
-  <div style="display: flex; justify-content: center; align-items: flex-start; flex-direction: row;"
-    id="meanings-lists"></div>
-  <div id="history" style="position: fixed; inset: 0 0 auto auto; height: 100%; border: 1px solid;">
+  <div id="meanings-lists"></div>
+  <div id="history">
     <h3 style="margin:0 auto;">History</h2>
-    <div id="log" style="overflow-y: scroll; height: 100%;"></div>
+      <div id="log"></div>
   </div>
 </body>
 
