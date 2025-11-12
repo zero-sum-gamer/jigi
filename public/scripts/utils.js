@@ -74,11 +74,52 @@ export const clearQueryParams = () => {
   history.pushState({}, "", url);
 }
 
-export const copyToClipboard = async () => {
+export const copyToClipboard = async (text) => {
   try {
-    await navigator.clipboard.writeText(outputField.value);
+    await navigator.clipboard.writeText(text);
   } catch (err) {
     console.error('Failed to copy: ', err);
   }
 }
 
+const clearFields = () => {
+  textInput.value = '';
+  outputField.value = '';
+  meaningsLists.innerHTML = '';
+  clearQueryParams();
+}
+
+const insertTextAtInput = (text) => {
+  textInput.value = text;
+  populateMeaningsLists()
+}
+
+const log = document.getElementById('log');
+export const addToHistory = async () => {
+  // Don't add to history if there are no meanings.
+  if(!meaningsLists.innerHTML) return;
+
+  const redoWord = document.createElement('button');
+  const copyMeanings = document.createElement('button');
+  // const deleteItem = document.createElement('button');
+
+  redoWord.textContent = `${textInput.value} 🔄`;
+  copyMeanings.textContent = `${outputField.value} 💾`;
+  // deleteItem.textContent = "❌";
+  // deleteItem.onclick = () => removeLogItem(...);
+
+  redoWord.onclick = insertTextAtInput.bind(null, textInput.value);
+  copyMeanings.onclick = copyToClipboard.bind(null, outputField.value);
+
+  const redoWordListItem = document.createElement('li');
+  const copyMeaningsListItem = document.createElement('li');
+  redoWordListItem.append(redoWord);
+  copyMeaningsListItem.append(copyMeanings);
+
+  const ul = document.createElement('ul');
+  ul.append(redoWordListItem, copyMeaningsListItem);
+  log.append(ul);
+
+  await copyToClipboard(outputField.value);
+  clearFields()
+}

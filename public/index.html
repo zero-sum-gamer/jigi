@@ -15,22 +15,22 @@
     <h2 style="margin:0 auto;">JIGI</h2>
   </header>
   <main>
-    <div>
+    <section>
       <div style="display: flex; justify-content: space-between; align-items: center; flex-direction: row;">
         <input style="border: 1px solid black; width: 100%;" type="text" id="search-field" />
-        <button style="flex-shrink: 0;" type="button" onclick="populateMeaningsLists()">Find Meanings</button>
+        <button style="flex-shrink: 0;" type="button" onclick="populateMeaningsLists()">🔍</button>
       </div>
       <div style="display: flex; justify-content: space-between; align-items: center; flex-direction: row;">
         <input type="text" id="output-field" style="border: 1px solid black; width: 100%;"></input>
-        <button type="button" style="flex-shrink: 0;" onclick="copyToClipboard()">💾</button>
+        <button type="button" style="flex-shrink: 0;" onclick="addToHistory()">💾</button>
       </div>
-    </div>
-    <div id="meanings-lists"></div>
+    </section>
+    <section id="meanings-lists"></section>
   </main>
-  <section id="history">
+  <aside id="history">
     <h3 style="margin:0 auto;">History</h2>
-      <div id="log"></div>
-  </section>
+      <ul id="log"></ul>
+    </aside>
 </body>
 
 </html>

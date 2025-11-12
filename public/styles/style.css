@@ -27,12 +27,12 @@ body {
   position: fixed;
 }
 
-#log {
+/* #log {
   position: fixed;
   inset: 0 0 auto auto;
   height: 100%;
   border: 1px solid;
-}
+} */
 
 #meanings-lists {
   display: flex;
