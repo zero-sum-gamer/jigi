@@ -36,16 +36,17 @@ li {
 #history {
   position: fixed;
   overflow: scroll;
+  padding: 4px;;
 }
 
-/*
-#log {
-  position: fixed;
-  inset: 0 0 auto auto;
-  height: 100%;
-  border: 1px solid;
+#history-header {
+  display: flex;
 }
-*/
+
+#log li > * {
+  width: 100%;
+  text-align: left;
+}
 
 #search {
   display: flex;
@@ -60,7 +61,7 @@ li {
 
 #meanings-lists {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 #meanings-lists li > * {

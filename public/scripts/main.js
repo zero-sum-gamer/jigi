@@ -1,4 +1,4 @@
-import { fetchKanjiMeanings, populateMeaningsLists, queryParamsUpdatedListener, addToHistory, pasteFromClipboard } from './utils.js';
+import { fetchKanjiMeanings, populateMeaningsLists, queryParamsUpdatedListener, addToHistory, clearHistory, pasteFromClipboard } from './utils.js';
 
 let previousText;
 
@@ -39,3 +39,4 @@ window.addEventListener('popstate', queryParamsUpdatedListener);
 window.pasteFromClipboard = pasteFromClipboard;
 window.populateMeaningsLists = populateMeaningsLists;
 window.addToHistory = addToHistory;
+window.clearHistory = clearHistory;

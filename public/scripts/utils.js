@@ -101,7 +101,13 @@ const clearFields = () => {
 
 const insertTextAtInput = (text) => {
   textInput.value = text;
+}
+
+const onClickRedoWord = (text, element) => {
+  insertTextAtInput(text);
   populateMeaningsLists()
+  const logItem = element.parentElement.parentElement;
+  logItem.remove();
 }
 
 const log = document.getElementById('log');
@@ -113,12 +119,12 @@ export const addToHistory = async () => {
   const copyMeanings = document.createElement('button');
   // const deleteItem = document.createElement('button');
 
-  redoWord.textContent = `${textInput.value} 🔄`;
-  copyMeanings.textContent = `${outputField.textContent} 💾`;
+  redoWord.textContent = ` 🔄 ${textInput.value}`;
+  copyMeanings.textContent = `💾 ${outputField.textContent}`;
   // deleteItem.textContent = "❌";
   // deleteItem.onclick = () => removeLogItem(...);
 
-  redoWord.onclick = insertTextAtInput.bind(null, textInput.value);
+  redoWord.onclick = onClickRedoWord.bind(null, textInput.value, redoWord);
   copyMeanings.onclick = copyToClipboard.bind(null, outputField.textContent);
 
   const redoWordListItem = document.createElement('li');
@@ -132,4 +138,8 @@ export const addToHistory = async () => {
 
   await copyToClipboard(outputField.textContent);
   clearFields()
+}
+
+export const clearHistory = () => {
+  log.innerHTML = '';
 }
