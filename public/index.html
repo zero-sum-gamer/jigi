@@ -15,23 +15,24 @@
     <h2 style="margin:0 auto;">JIGI</h2>
   </header>
   <main>
-    <section>
+    <section id="search">
+      <input style="border: 1px solid black;" type="text" id="search-field" />
       <div style="display: flex; justify-content: space-between; align-items: center; flex-direction: row;">
-        <input style="border: 1px solid black; width: 100%;" type="text" id="search-field" />
-        <button style="flex-shrink: 0;" type="button" onclick="pasteFromClipboard()">📋</button>
-        <button style="flex-shrink: 0;" type="button" onclick="populateMeaningsLists()">🔍</button>
-      </div>
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-direction: row;">
-        <input type="text" id="output-field" style="border: 1px solid black; width: 100%;"></input>
-        <button type="button" style="flex-shrink: 0;" onclick="addToHistory()">💾</button>
+        <button type="button" onclick="pasteFromClipboard()">📋</button>
+        <button type="button" onclick="populateMeaningsLists()">🔍</button>
+        <button type="button" onclick="addToHistory()">💾</button>
       </div>
     </section>
-    <section id="meanings-lists"></section>
+    <section id="output">
+      <span id="output-field" style="text-align: center; width: 100%"></span>
+    </section>
+    <section id="meanings-lists">
+    </section>
   </main>
   <aside id="history">
     <h3 style="margin:0 auto;">History</h2>
       <ul id="log"></ul>
-    </aside>
+  </aside>
 </body>
 
 </html>

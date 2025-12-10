@@ -21,6 +21,16 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
+}
+
+ul {
+  padding: 0;
+  margin: 4px 8px;
+}
+
+li {
+  list-style: none;
 }
 
 #history {
@@ -28,16 +38,31 @@ body {
   overflow: scroll;
 }
 
-/* #log {
+/*
+#log {
   position: fixed;
   inset: 0 0 auto auto;
   height: 100%;
   border: 1px solid;
-} */
+}
+*/
+
+#search {
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  margin: 0 auto;
+} 
+
+#search button {
+  flex: 1;
+} 
 
 #meanings-lists {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#meanings-lists li > * {
+  width: 100%;
 }

@@ -58,7 +58,7 @@ const outputField = document.getElementById('output-field');
 export const queryParamsUpdatedListener = () => {
   const url = new URL(window.location.href);
   url.searchParams.sort()
-  outputField.value = Array.from(url.searchParams.values()).join(separator);
+  outputField.textContent = Array.from(url.searchParams.values()).join(separator);
 }
 
 export const appendQueryParam = (paramName, paramValue) => {
@@ -72,6 +72,7 @@ export const clearQueryParams = () => {
   const url = new URL(window.location.href);
   url.search = "";
   history.pushState({}, "", url);
+  queryParamsUpdatedListener()
 }
 
 export const copyToClipboard = async (text) => {
@@ -93,7 +94,7 @@ export const pasteFromClipboard = async () => {
 
 const clearFields = () => {
   textInput.value = '';
-  outputField.value = '';
+  outputField.textContent = '';
   meaningsLists.innerHTML = '';
   clearQueryParams();
 }
@@ -113,12 +114,12 @@ export const addToHistory = async () => {
   // const deleteItem = document.createElement('button');
 
   redoWord.textContent = `${textInput.value} 🔄`;
-  copyMeanings.textContent = `${outputField.value} 💾`;
+  copyMeanings.textContent = `${outputField.textContent} 💾`;
   // deleteItem.textContent = "❌";
   // deleteItem.onclick = () => removeLogItem(...);
 
   redoWord.onclick = insertTextAtInput.bind(null, textInput.value);
-  copyMeanings.onclick = copyToClipboard.bind(null, outputField.value);
+  copyMeanings.onclick = copyToClipboard.bind(null, outputField.textContent);
 
   const redoWordListItem = document.createElement('li');
   const copyMeaningsListItem = document.createElement('li');
@@ -129,6 +130,6 @@ export const addToHistory = async () => {
   ul.append(redoWordListItem, copyMeaningsListItem);
   log.append(ul);
 
-  await copyToClipboard(outputField.value);
+  await copyToClipboard(outputField.textContent);
   clearFields()
 }
