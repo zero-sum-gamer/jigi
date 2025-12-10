@@ -78,7 +78,16 @@ export const copyToClipboard = async (text) => {
   try {
     await navigator.clipboard.writeText(text);
   } catch (err) {
-    console.error('Failed to copy: ', err);
+    console.error('Failed to copy from clipboard: ', err);
+  }
+}
+
+export const pasteFromClipboard = async () => {
+  try {
+    const text = await navigator.clipboard.readText();
+    textInput.value = text;
+  } catch (err) {
+    console.error('Failed to paste from clipboard: ', err);
   }
 }
 
