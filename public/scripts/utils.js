@@ -8,40 +8,57 @@ export const fetchKanjiMeanings = async () => {
   }
 }
 
-const getMeaningsForKanji = (text) => {
-  let meanings = {};
-  for (const character of text) {
-    const kanjiMeanings = kanjiMeaningsDict[character];
+const getMeaningsForKanjiCharacter = (character) => {
+  const kanjiMeanings = kanjiMeaningsDict[character];
 
-    // If character is not a kanji, skip it.
-    if (!!kanjiMeanings && !!Object.keys(kanjiMeanings)) {
-      meanings[character] = kanjiMeanings["Meanings"];
-    }
+  // If character is not a kanji, skip it.
+  if (!!kanjiMeanings && !!Object.keys(kanjiMeanings)) {
+    return kanjiMeanings["Meanings"];
+  } else {
+    return null;
   }
-  return meanings;
 };
+
+const getMeaningsForKanjiText = (text) => {
+  let meanings = {};
+  let characters = []; // We must make sure to have all characters, even duplicates.
+  for (const character of text) {
+    // If we already have meanings for this character, reuse them.
+    if (!!meanings[character]) {
+      characters.push(character);
+    } else {
+      const _meanings = getMeaningsForKanjiCharacter(character);
+      // Only add characters that have meanings. If value is null, that means it's a non-kanji character.
+      if(!!_meanings) {
+        meanings[character] = _meanings;
+        characters.push(character);
+      }
+    }
+  };
+  return { characters, meanings };
+}
 
 const meaningsLists = document.getElementById('meanings-lists');
 const textInput = document.getElementById('search-field');
 export const populateMeaningsLists = () => {
   clearQueryParams();
-  const kanjiMeanings = getMeaningsForKanji(textInput.value);
+  const { characters, meanings } = getMeaningsForKanjiText(textInput.value);
 
   // Clear existing table content and repopulate table with kanji meanings
   if (!!meaningsLists) meaningsLists.innerHTML = '';
-  Object.keys(kanjiMeanings).forEach((kanji, kanjiIndex) => {
+  characters.forEach((character, characterIndex) => {
     const ul = document.createElement('ul');
-    const finalIndex = kanjiMeanings[kanji].length - 1;
+    const finalIndex = meanings[character].length - 1;
     for (let meaningIndex = 0; meaningIndex <= finalIndex; meaningIndex++) {
-      const meaning = kanjiMeanings[kanji][meaningIndex];
+      const meaning = meanings[character][meaningIndex];
       if (!!String(meaning).trim().length) {
         // Automatically append the first meaning of each kanji to the query params.
-        if (meaningIndex == 0) appendQueryParam(`meaning-${kanjiIndex + 1}`, meaning)
+        if (meaningIndex == 0) appendQueryParam(`meaning-${characterIndex + 1}`, meaning)
 
         const li = document.createElement('li');
         const button = document.createElement('button');
         button.textContent = meaning;
-        button.onclick = () => appendQueryParam(`meaning-${kanjiIndex + 1}`, meaning);
+        button.onclick = () => appendQueryParam(`meaning-${characterIndex + 1}`, meaning);
         li.append(button);
         ul.append(li);
       } else {
@@ -113,7 +130,7 @@ const onClickRedoWord = (text, element) => {
 const log = document.getElementById('log');
 export const addToHistory = async () => {
   // Don't add to history if there are no meanings.
-  if(!meaningsLists.innerHTML) return;
+  if (!meaningsLists.innerHTML) return;
 
   const redoWord = document.createElement('button');
   const copyMeanings = document.createElement('button');
