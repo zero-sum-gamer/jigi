@@ -25,6 +25,7 @@ body {
 
 #history {
   position: fixed;
+  overflow: scroll;
 }
 
 /* #log {
